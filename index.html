@@ -1,3 +1,45 @@
-<h1>Objetos en JavaScript</h1>
-<h2>El camino a la POO</h2>
-<script src="objetos.js"></script>
+<h1>POO en JavaScript</h1>
+<h2>Otra forma de ver la realidad</h2>
+
+<section id="catalogo" style="border:dashed 2px"></section>
+
+<script src="producto.class.js"></script>
+<script>
+	/*
+	let productoUno = new Producto("Cafe con Leche", 500, 85.65, true) //<-- Instanciar el Objeto "Producto"
+
+	let productoDos = new Producto("Te de Tilo", 450, 88.25)
+
+	productoUno.Mostrar("#catalogo")
+	productoDos.Mostrar("#catalogo")
+
+	Producto.Comparar(productoUno, productoDos)
+	*/
+
+	let ajax = new XMLHttpRequest()
+	ajax.open("GET", "https://api.myjson.com/bins/1giaf3")
+	ajax.onload = function(){
+
+		if( this.status == 200 ){ // ← Respuesta exitosa!
+
+			let productos = Producto.parse ( this.response )
+
+			productos.forEach(producto => {
+				producto.Mostrar("#catalogo")
+			})
+
+
+		} else {
+			this.onerror()
+		}
+	}
+	ajax.onerror = function(){
+		alert("Error...datos no disponibles :(")
+	}
+    ////////////////////////////////////////////
+	window.onload = function(){ // ← Ejecutar cuando se cargo absolutamente todo...
+		ajax.send()
+	}
+
+
+</script>-
