@@ -80,7 +80,7 @@ class Producto {
 
 		ficha.querySelector("button").onclick = () => {
 			this.nombre = prompt("Ingrese nuevo nombre:")
-			this.stock = prompt("Ingrese nuevo stock:")
+			this.stock = parseInt( prompt("Ingrese nuevo stock:") )
 			this.precio = prompt("Ingrese nuevo precio")
 			this.disponible = confirm("Esta disponible para la venta?")
 		}
@@ -97,38 +97,24 @@ class Producto {
 			document.write(`El ${p1._nombre} es mas barato que el ${p2._nombre}`)
 		}
 
+	}
 
+	static parse(rta){
+
+		let datos = JSON.parse(rta)
+
+		//1) Si es un Array de Object...
+		if( datos instanceof Array ){
+
+			return datos.map( item => new Producto(item.nombre, item.stock, item.precio, item.disponible) )
+
+		} else if( datos instanceof Object ){ //2) Si es un solo Object...
+
+			return new Producto(datos.nombre, datos.stock, datos.precio, datos.disponible)
+
+		} else { //3) Si no es ni Array ni Object...
+			throw "ERROR: datos no compatibles para crear objetos Producto"
 		}
-
-		static parse(rta){
-			
-			let datos = JSON.parse(rta)
-
-			//1) Si es un Array de Objects...
-
-			if( datos instanceof Array){
-
-				//let productos = new Array()
-
-				//datos.forEach(function(item){
-					//let producto = new Producto (item.nombre, item.stock, item.precio, item.disponible)
-					//productos.push(producto) //push agrega nuevos items al Array
-
-				let productos = datos.map( item => new Producto(item.nombre, item.stpck, item.precio, item.disponible) )
-
-				//return productos
-
-			} else if( datos instanceof Object){ //2) Si es un solo Object
-
-				//let producto = new Producto(datos.nombre, datos.stock, datos.precio, datos.disponible)
-				//return producto
-
-				return new Producto(datos.nombre, datos.stock, datos.precio, datos.disponible)
-
-			}else { //3) Si no es ni Array ni Object...
-				throw "ERROR: datos no compatibles para crear Objetos Producto"
-
-			}
 
 	}
 }
