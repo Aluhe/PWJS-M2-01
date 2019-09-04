@@ -1,0 +1,2 @@
+que es un elemento "ul"?
+poner guion bajo a propiedades y funciones que quiera que sean usadas dentro de la clase
